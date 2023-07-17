@@ -7,9 +7,10 @@ import QrCode from './components/QrCode.jsx';
 // Styling imports
 import './styles/App.css'
 import Logo from './components/Logo.jsx';
+import Modal from './components/Modal.jsx';
 
 function App() {
-  const [qrCode, setQrCode] = useState();
+  const [qrCodeImage, setQrCodeImage] = useState();
   const [currentUrl, setCurrentUrl] = useState("http://google.com/");
   const urlRef = useRef();
 
@@ -24,7 +25,7 @@ function App() {
         .then(async (res) => {
           if (res.ok){
             const response = await res.blob(); //Get image blob from the API
-            setQrCode(URL.createObjectURL(response)); //Create image output based on image blob returned by the API.
+            setQrCodeImage(URL.createObjectURL(response)); //Create image output based on image blob returned by the API.
           }else{
             console.error("Falha ao requisitar a API (API fetch Error!)")
           }
@@ -43,7 +44,7 @@ function App() {
         <Logo></Logo>
         <div className="p-4 bg-white rounded-lg w-[90vw] max-w-[400px] min-w-[200px] h-[70vh] md:h-[60vh] max-h-[600px] min-h-[200px] drop-shadow-lg flex flex-col items-center justify-between gap-4">
           <Input urlRef={urlRef}></Input>
-          <QrCode imageUrl={qrCode}></QrCode>
+          <QrCode imageUrl={qrCodeImage}></QrCode>
 
           <div className="subtitle">
             <h1>
@@ -57,10 +58,16 @@ function App() {
 
           <div className="flex flex-col md:flex-row w-full justify-between gap-2">
             <Button onClick={handleGenerateClick}>Generate</Button>
-            <Button>Share</Button>
+            <Button data-modal-target="shareModal" data-modal-toggle="shareModal" type="button">Share</Button>
+
           </div>
 
         </div>
+
+
+        <Modal qrCodeImage={qrCodeImage} id="shareModal" currentUrl={currentUrl}></Modal>
+
+
       </div>
     </div>
   )
