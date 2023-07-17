@@ -1,0 +1,27 @@
+.logo-text{
+    color: white;
+    font-size: xx-large;
+    font-family: "Lobster";
+    text-shadow:   0px -1px 0 #212121,  
+    0px -2px 0 #212121,
+    0px  2px 0 #212121,
+    0px  2px 0 #212121,
+   -2px  0px 0 #212121,  
+    2px  0px 0 #212121,
+   -2px  0px 0 #212121,
+    2px  0px 0 #212121,
+   -2px -2px 0 #212121,  
+    2px -2px 0 #212121,
+   -2px  2px 0 #212121,
+    2px  2px 0 #212121,
+   -2px  5px 0 #212121,
+    0px  5px 0 #212121,
+    2px  5px 0 #212121,
+    0 19px 1px rgba(0,0,0,.1),
+    0 0 1px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 12px 1px rgba(0,0,0,.2),
+    0 9px 9px rgba(0,0,0,.25),
+    0 24px 24px rgba(0,0,0,.2),
+    0 31px 31px rgba(0,0,0,.15);
+}
