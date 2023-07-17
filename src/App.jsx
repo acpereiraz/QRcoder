@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       try{
-        await fetch(`http://api.qrserver.com/v1/create-qr-code/?size=512x512&data=${currentUrl}`)
+        await fetch(`https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=${currentUrl}`)
         .then(async (res) => {
           if (res.ok){
             const response = await res.blob(); //Get image blob from the API
