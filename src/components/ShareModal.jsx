@@ -1,16 +1,29 @@
-import { useState } from "react";
+// React imports
+import { useRef, useState } from "react";
+// Components imports
 import QrCode from "./QrCode";
+import Button from "./Button";
+// Utilities imports
+import PrintToClipboard from "../utils/PrintToClipboard";
 
-export default function Modal({qrCodeImage, id, currentUrl}) {
+export default function ShareModal({qrCodeImage, id, currentUrl, notifications, setNotifications}) {
 
     const defaultMessage = "Check this QR! Generated on QRCoder.com"
     const [message, setMessage] = useState(defaultMessage);
+    const divRef = useRef();
 
     const handleOnChangeTextarea = (element) => {
         async function ChangeMessage() {
             element.target.value ? setMessage(element.target.value) : setMessage(defaultMessage)
         }
         ChangeMessage();
+    }
+
+    const handlePrintToClipboard = (elementReference) => {
+        PrintToClipboard(elementReference);
+        setNotifications([...notifications, {
+            content: "QR code copied to clipboard with success!",
+        }])
     }
 
     return(
@@ -35,21 +48,24 @@ export default function Modal({qrCodeImage, id, currentUrl}) {
                     </div>
 
                     <div className="flex flex-col p-6 gap-5">
-                        <div className="flex flex-col gap-5 justify-center items-center h-[50%] w-full">
-                            <div className="w-[50%] h-full mt-4">
-                                <QrCode imageUrl={qrCodeImage}></QrCode> 
+                        <div className="flex justify-center items-center h-[60%] w-full">
+                            <div ref={divRef} className="flex flex-col justify-center items-center w-[60%] gap-2 text-center p-2">
+                                <div className="w-[70%] h-full mt-2">
+                                    <QrCode imageUrl={qrCodeImage}></QrCode> 
+                                </div>
+                                <h2 className="font-medium text-sm text-gray-500">{currentUrl}</h2>
+                                <h3 className="w-full px-5 flex justify-center max-h-[100px] break-words flex-nowrap text-sm mb-2">{message}</h3>
                             </div>
-                            <h2 className="font-medium text-sm text-gray-500">{currentUrl}</h2>
-                            <h3 className="w-full px-5 flex justify-center max-h-[100px] break-words overflow-auto flex-nowrap">{message}</h3>
+
                         </div>
 
                         <div>
-                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Customize your message</label>
-                            <textarea onChange={(e) => {handleOnChangeTextarea(e)}} id="message" rows="4" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                            <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Customize your message</label>
+                            <textarea onChange={(e) => {handleOnChangeTextarea(e)}} id="message" rows="4" className="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
                         </div>
 
                         <div className="share-buttons">
-                            
+                            <Button onClick={() => {handlePrintToClipboard(divRef)}}>Copy to Clipboard</Button>
                         </div>
                     </div>
 
