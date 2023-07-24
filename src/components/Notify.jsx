@@ -1,7 +1,7 @@
-import { useEffect, useId, useState } from "react";
+// React imports
+import { useEffect } from "react";
 
 export default function Notify({notifications, setNotifications}){
-    const keyId = useId();
 
     useEffect(() => {
         const timer = notifications && setTimeout(() => {
@@ -34,9 +34,9 @@ export default function Notify({notifications, setNotifications}){
     }
 
     return(
-        <div className="notify-container flex flex-col gap-2 absolute top-0 right-0 p-4 h-screen w-[50%] sm:w-[40%] md:w-[300px] text-white z-60">
-            {notifications.map((notification) =>(
-                <Notification key={keyId}>{notification.content}</Notification>
+        <div className="notify-container flex flex-col gap-2 absolute top-0 right-0 p-4 h-screen w-[75%] sm:w-[40%] md:w-[300px] text-white z-60">
+            {notifications.map((notification, index) =>(
+                <Notification key={index}>{notification.content}</Notification>
             ))}
         </div>
     )

@@ -1,3 +1,4 @@
+// Styling imports
 import "../styles/Logo.css";
 
 export default function Logo() {

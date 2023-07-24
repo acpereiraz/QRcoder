@@ -3,12 +3,13 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 // Components imports
 import Button from "./components/Button.jsx";
 import Input from './components/Input.jsx';
+import Logo from './components/Logo.jsx';
+import Notify from './components/Notify.jsx';
 import QrCode from './components/QrCode.jsx';
+import ShareModal from './components/ShareModal.jsx';
 // Styling imports
 import './styles/App.css'
-import Logo from './components/Logo.jsx';
-import ShareModal from './components/ShareModal.jsx';
-import Notify from './components/Notify.jsx';
+
 
 function App() {
   const [qrCodeImage, setQrCodeImage] = useState();
@@ -16,7 +17,7 @@ function App() {
   const [notifications, setNotifications] = useState([]);
   const urlRef = useRef();
 
-  const handleGenerateClick = () => {
+  const handleGenerateClick = async () => {
     urlRef.current.value && setCurrentUrl(urlRef.current.value);
     setNotifications([...notifications, {
       content: "New QR code generated.",
@@ -68,7 +69,7 @@ function App() {
 
           <div className="flex flex-col md:flex-row w-full justify-between gap-2">
             <Button onClick={handleGenerateClick}>Generate</Button>
-            <Button data-modal-target="shareModal" data-modal-toggle="shareModal" type="button">Share</Button>
+            <Button data-modal-target="shareModal" data-modal-toggle="shareModal" isShare={true} type="button">Share</Button>
 
           </div>
 
